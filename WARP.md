@@ -32,6 +32,12 @@ mvn test -Dtest=ExpenseSplittingServiceTest
 
 # Run tests with coverage (if configured)
 mvn clean test jacoco:report
+
+# Run specific test method
+mvn test -Dtest=ExpenseSplittingServiceTest#testSplitEqual
+
+# Run tests in debug mode
+mvn -Dmaven.surefire.debug test
 ```
 
 ### Database Operations
@@ -59,6 +65,15 @@ mvn clean
 
 # Compile without running tests
 mvn compile -DskipTests
+
+# Debug JavaFX application with remote debugging enabled
+mvn javafx:run -Djavafx.args="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"
+
+# Analyze dependencies for conflicts
+mvn dependency:tree
+
+# Verify database connectivity
+mysql -u expense_user -p -e "SELECT 1 FROM expense_splitter.users LIMIT 1;"
 ```
 
 ## Architecture Overview
@@ -74,8 +89,10 @@ mvn compile -DskipTests
 ### Core Architecture Patterns
 - **Layered Architecture**: Clear separation between model, DAO, service, and UI layers
 - **Singleton Pattern**: Used for DatabaseConfig and SceneManager utilities
-- **Builder Pattern**: Implemented in domain models (User, ExpenseGroup)
+- **Builder Pattern**: Implemented in domain models (User, ExpenseGroup, ExpenseShare)
 - **MVC Pattern**: FXML controllers manage UI logic, services handle business logic
+- **Strategy Pattern**: ExpenseSplittingService implements multiple splitting algorithms (equal, percentage, custom, by-shares)
+- **Debt Optimization**: Smart debt settlement algorithms to minimize transaction count
 
 ### Package Structure
 ```
@@ -86,12 +103,12 @@ com.expensesplitter/
 │   ├── GroupMember.java
 │   ├── ExpenseCategory.java
 │   └── SplitType.java
-├── dao/                # Data Access Objects (not yet implemented)
-├── service/            # Business logic services (not yet implemented)  
+├── dao/                # Data Access Objects - IMPLEMENTED (UserDAO, ExpenseDAO, ExpenseShareDAO)
+├── service/            # Business logic services - IMPLEMENTED (ExpenseSplittingService, UserService, etc.)  
 ├── ui/                 # JavaFX UI components
-│   ├── controller/     # FXML controllers (not yet implemented)
-│   ├── view/           # Custom UI components (not yet implemented)
-│   └── chart/          # Chart components (not yet implemented)
+│   ├── controller/     # FXML controllers - PARTIALLY IMPLEMENTED (DashboardController, LoginController)
+│   ├── view/           # Custom UI components (placeholder)
+│   └── chart/          # Chart components (placeholder)
 ├── config/             # Configuration management
 │   └── DatabaseConfig.java  # Singleton database configuration
 └── util/               # Utility classes
@@ -111,6 +128,8 @@ com.expensesplitter/
 3. **Configuration Management**: Properties-based configuration with fallback defaults
 4. **Domain Model Validation**: Input validation at the model level with meaningful exceptions
 5. **Defensive Programming**: Null checks, immutable collections, and proper error handling
+6. **Expense Splitting Algorithms**: Comprehensive support for equal, percentage, custom, and share-based splits
+7. **Debt Settlement Optimization**: Minimizes transaction count through intelligent debt matching
 
 ## Configuration
 
