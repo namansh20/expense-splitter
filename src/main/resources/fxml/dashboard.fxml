@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.expensesplitter.ui.controller.DashboardController">
+   <top>
+      <VBox styleClass="header" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="top-bar">
+               <children>
+                  <Label fx:id="welcomeLabel" styleClass="welcome-label" text="Welcome back!" />
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Button text="Profile" />
+                  <Button text="Settings" />
+                  <Button text="Logout" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER" spacing="20.0" styleClass="summary-cards">
+               <children>
+                  <VBox alignment="CENTER" styleClass="summary-card">
+                     <children>
+                        <Label fx:id="totalExpensesLabel" styleClass="summary-value" text="$0.00" />
+                        <Label styleClass="summary-label" text="Total Expenses" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" styleClass="summary-card">
+                     <children>
+                        <Label fx:id="totalOwedLabel" styleClass="summary-value" text="$0.00" />
+                        <Label styleClass="summary-label" text="You Owe" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" styleClass="summary-card">
+                     <children>
+                        <Label fx:id="totalLentLabel" styleClass="summary-value" text="$0.00" />
+                        <Label styleClass="summary-label" text="You Lent" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" styleClass="summary-card">
+                     <children>
+                        <Label fx:id="netBalanceLabel" styleClass="summary-value" text="$0.00" />
+                        <Label styleClass="summary-label" text="Net Balance" />
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="main-content">
+         <content>
+            <VBox spacing="20.0">
+               <children>
+                  <HBox spacing="20.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <!-- Quick Actions Panel -->
+                        <VBox fx:id="quickActionsBox" styleClass="panel" HBox.hgrow="NEVER">
+                           <children>
+                              <Label styleClass="panel-title" text="Quick Actions" />
+                              <VBox spacing="10.0">
+                                 <children>
+                                    <Button fx:id="addExpenseButton" maxWidth="Infinity" styleClass="action-button" text="Add Expense" />
+                                    <Button fx:id="createGroupButton" maxWidth="Infinity" styleClass="action-button" text="Create Group" />
+                                    <Button fx:id="settleDebtsButton" maxWidth="Infinity" styleClass="action-button" text="Settle Debts" />
+                                    <Button fx:id="viewReportsButton" maxWidth="Infinity" styleClass="action-button" text="View Reports" />
+                                 </children>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </padding>
+                        </VBox>
+                        <!-- Recent Expenses Panel -->
+                        <VBox styleClass="panel" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label styleClass="panel-title" text="Recent Expenses" />
+                              <TableView fx:id="recentExpensesTable" VBox.vgrow="ALWAYS">
+                                 <columns>
+                                    <TableColumn fx:id="expenseDescriptionColumn" prefWidth="200.0" text="Description" />
+                                    <TableColumn fx:id="expenseAmountColumn" prefWidth="100.0" text="Amount" />
+                                    <TableColumn fx:id="expenseDateColumn" prefWidth="120.0" text="Date" />
+                                    <TableColumn fx:id="expenseGroupColumn" prefWidth="150.0" text="Group" />
+                                    <TableColumn fx:id="expenseStatusColumn" prefWidth="80.0" text="Status" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                           <padding>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox spacing="20.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <!-- Outstanding Debts Panel -->
+                        <VBox styleClass="panel" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label styleClass="panel-title" text="Outstanding Debts" />
+                              <TableView fx:id="debtsTable" VBox.vgrow="ALWAYS">
+                                 <columns>
+                                    <TableColumn fx:id="debtUserColumn" prefWidth="200.0" text="User" />
+                                    <TableColumn fx:id="debtAmountColumn" prefWidth="120.0" text="Amount" />
+                                    <TableColumn fx:id="debtStatusColumn" prefWidth="100.0" text="Status" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                           <padding>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </padding>
+                        </VBox>
+                        <!-- Notifications Panel -->
+                        <VBox styleClass="panel" HBox.hgrow="NEVER">
+                           <children>
+                              <Label styleClass="panel-title" text="Notifications" />
+                              <ListView fx:id="notificationsList" prefHeight="200.0" prefWidth="300.0" />
+                           </children>
+                           <padding>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox spacing="20.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <!-- Expense by Category Chart -->
+                        <VBox styleClass="panel" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label styleClass="panel-title" text="Expenses by Category" />
+                              <PieChart fx:id="expenseByCategoryChart" prefHeight="300.0" />
+                           </children>
+                           <padding>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </padding>
+                        </VBox>
+                        <!-- Monthly Expenses Chart -->
+                        <VBox styleClass="panel" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label styleClass="panel-title" text="Monthly Expenses" />
+                              <BarChart fx:id="monthlyExpensesChart" prefHeight="300.0">
+                                 <xAxis>
+                                    <CategoryAxis />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis />
+                                 </yAxis>
+                              </BarChart>
+                           </children>
+                           <padding>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </center>
+</BorderPane>
