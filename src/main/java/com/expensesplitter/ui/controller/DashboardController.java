@@ -72,7 +72,13 @@ public class DashboardController implements Initializable {
     }
     
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+public void initialize(URL location, ResourceBundle resources) {
+        // Lazy-wire services from AppContext if not set
+        if (this.userService == null || this.expenseService == null) {
+            var ctx = com.expensesplitter.config.AppContext.getInstance();
+            this.userService = ctx.getUserService();
+            this.expenseService = ctx.getExpenseService();
+        }
         setupTableColumns();
         setupButtonActions();
     }
@@ -80,8 +86,12 @@ public class DashboardController implements Initializable {
     public void initializeData() {
         this.currentUser = userService.getCurrentUser().orElse(null);
         if (currentUser == null) {
-            logger.warn("No current user found, redirecting to login");
-            SceneManager.getInstance().showScene("login.fxml");
+logger.warn("No current user found, redirecting to login");
+try {
+    SceneManager.getInstance().switchToScene("login.fxml");
+} catch (Exception ex) {
+    logger.error("Error navigating to login scene", ex);
+}
             return;
         }
         
@@ -280,7 +290,7 @@ public class DashboardController implements Initializable {
     // Button handlers
     private void handleAddExpense() {
         try {
-            SceneManager.getInstance().showScene("add-expense.fxml");
+SceneManager.getInstance().switchToScene("add-expense.fxml");
         } catch (Exception e) {
             logger.error("Error opening add expense screen", e);
             showError("Error opening add expense screen");
@@ -289,7 +299,7 @@ public class DashboardController implements Initializable {
     
     private void handleCreateGroup() {
         try {
-            SceneManager.getInstance().showScene("create-group.fxml");
+SceneManager.getInstance().switchToScene("create-group.fxml");
         } catch (Exception e) {
             logger.error("Error opening create group screen", e);
             showError("Error opening create group screen");
@@ -298,7 +308,7 @@ public class DashboardController implements Initializable {
     
     private void handleSettleDebts() {
         try {
-            SceneManager.getInstance().showScene("settle-debts.fxml");
+SceneManager.getInstance().switchToScene("settle-debts.fxml");
         } catch (Exception e) {
             logger.error("Error opening settle debts screen", e);
             showError("Error opening settle debts screen");
@@ -307,7 +317,7 @@ public class DashboardController implements Initializable {
     
     private void handleViewReports() {
         try {
-            SceneManager.getInstance().showScene("reports.fxml");
+SceneManager.getInstance().switchToScene("reports.fxml");
         } catch (Exception e) {
             logger.error("Error opening reports screen", e);
             showError("Error opening reports screen");

@@ -56,7 +56,7 @@ public class Expense {
         setDescription(description);
         setAmount(amount);
         setCurrency(currency);
-        this.category = category != null ? category : ExpenseCategory.OTHER;
+this.category = category != null ? category : new ExpenseCategory("Other");
         this.splitType = splitType != null ? splitType : SplitType.EQUAL;
         this.expenseDate = expenseDate != null ? expenseDate : LocalDateTime.now();
         this.createdAt = createdAt != null ? createdAt : LocalDateTime.now();
@@ -116,7 +116,7 @@ public class Expense {
     }
 
     public void setCategory(ExpenseCategory category) {
-        this.category = category != null ? category : ExpenseCategory.OTHER;
+this.category = category != null ? category : new ExpenseCategory("Other");
     }
 
     public void setSplitType(SplitType splitType) {

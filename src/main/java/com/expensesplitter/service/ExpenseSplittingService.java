@@ -202,27 +202,27 @@ public class ExpenseSplittingService {
      * Optimizes debt settlements to minimize number of transactions
      * This implements a simplified debt optimization algorithm
      */
-    public List<DebtSettlement> optimizeDebts(List<UserBalance> userBalances) {
+public List<DebtSettlement> optimizeDebts(List<ExpenseService.UserBalance> userBalances) {
         logger.debug("Optimizing debts for {} users", userBalances.size());
         
         List<DebtSettlement> settlements = new ArrayList<>();
         
         // Separate creditors (those who are owed money) and debtors (those who owe money)
-        List<UserBalance> creditors = userBalances.stream()
+List<ExpenseService.UserBalance> creditors = userBalances.stream()
                 .filter(balance -> balance.getNetBalance().compareTo(BigDecimal.ZERO) > 0)
                 .sorted((a, b) -> b.getNetBalance().compareTo(a.getNetBalance()))
                 .collect(Collectors.toList());
         
-        List<UserBalance> debtors = userBalances.stream()
+List<ExpenseService.UserBalance> debtors = userBalances.stream()
                 .filter(balance -> balance.getNetBalance().compareTo(BigDecimal.ZERO) < 0)
                 .sorted((a, b) -> a.getNetBalance().compareTo(b.getNetBalance()))
                 .collect(Collectors.toList());
         
         // Create mutable copies for calculation
-        Map<Long, BigDecimal> creditorBalances = creditors.stream()
-                .collect(Collectors.toMap(UserBalance::getUserId, UserBalance::getNetBalance));
-        Map<Long, BigDecimal> debtorBalances = debtors.stream()
-                .collect(Collectors.toMap(UserBalance::getUserId, 
+Map<Long, BigDecimal> creditorBalances = creditors.stream()
+                .collect(Collectors.toMap(ExpenseService.UserBalance::getUserId, ExpenseService.UserBalance::getNetBalance));
+Map<Long, BigDecimal> debtorBalances = debtors.stream()
+                .collect(Collectors.toMap(ExpenseService.UserBalance::getUserId, 
                         balance -> balance.getNetBalance().abs()));
         
         // Match debts with credits

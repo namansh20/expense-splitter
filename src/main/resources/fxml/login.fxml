@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.expensesplitter.ui.controller.LoginController">
+    <center>
+        <StackPane>
+            <children>
+                <!-- Login Container -->
+                <VBox fx:id="loginContainer" alignment="CENTER" spacing="12.0">
+                    <children>
+                        <Label fx:id="appTitleLabel" text="Expense Splitter" style="-fx-font-size: 28px; -fx-font-weight: bold;" />
+                        <Label fx:id="appSubtitleLabel" text="Split expenses smartly with your groups" style="-fx-text-fill: #666;" />
+                        <VBox spacing="8.0" prefWidth="360.0">
+                            <children>
+                                <Label text="Username or Email" />
+                                <TextField fx:id="usernameField" promptText="Enter username or email" />
+                                <Label text="Password" />
+                                <PasswordField fx:id="passwordField" promptText="Enter password" />
+                                <HBox alignment="CENTER_LEFT" spacing="8.0">
+                                    <children>
+                                        <CheckBox fx:id="rememberMeCheckBox" text="Remember me" />
+                                        <Region HBox.hgrow="ALWAYS" />
+                                        <Hyperlink text="Forgot password?" />
+                                    </children>
+                                </HBox>
+                                <Button fx:id="loginButton" text="Login" maxWidth="Infinity" />
+                                <Label fx:id="loginErrorLabel" textFill="RED" visible="false" />
+                                <ProgressIndicator fx:id="loginProgressIndicator" visible="false" />
+                                <Button fx:id="showRegisterButton" text="Create an account" maxWidth="Infinity" />
+                            </children>
+                        </VBox>
+                    </children>
+                    <padding>
+                        <Insets top="40.0" bottom="40.0" left="20.0" right="20.0" />
+                    </padding>
+                </VBox>
+
+                <!-- Registration Container -->
+                <VBox fx:id="registrationContainer" alignment="CENTER" spacing="12.0" visible="false">
+                    <children>
+                        <Label text="Create your account" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+                        <VBox spacing="8.0" prefWidth="360.0">
+                            <children>
+                                <Label text="Username" />
+                                <TextField fx:id="regUsernameField" promptText="Choose a username" />
+                                <Label text="Email" />
+                                <TextField fx:id="regEmailField" promptText="Enter your email" />
+                                <Label text="Full name" />
+                                <TextField fx:id="regFullNameField" promptText="Enter your full name" />
+                                <Label text="Password" />
+                                <PasswordField fx:id="regPasswordField" promptText="Create a password" />
+                                <Label text="Confirm password" />
+                                <PasswordField fx:id="regConfirmPasswordField" promptText="Re-enter your password" />
+                                <Button fx:id="registerButton" text="Register" maxWidth="Infinity" />
+                                <Label fx:id="registrationErrorLabel" textFill="RED" visible="false" />
+                                <ProgressIndicator fx:id="registrationProgressIndicator" visible="false" />
+                                <Button fx:id="showLoginButton" text="Back to Login" maxWidth="Infinity" />
+                            </children>
+                        </VBox>
+                    </children>
+                    <padding>
+                        <Insets top="40.0" bottom="40.0" left="20.0" right="20.0" />
+                    </padding>
+                </VBox>
+            </children>
+        </StackPane>
+    </center>
+</BorderPane>

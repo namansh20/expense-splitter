@@ -56,7 +56,11 @@ public class LoginController implements Initializable {
     }
     
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+public void initialize(URL location, ResourceBundle resources) {
+        // Lazy-wire services from AppContext if not set
+        if (this.userService == null) {
+            this.userService = com.expensesplitter.config.AppContext.getInstance().getUserService();
+        }
         setupEventHandlers();
         setupValidation();
         showLoginForm();
@@ -170,7 +174,7 @@ public class LoginController implements Initializable {
                     
                     try {
                         // Navigate to dashboard
-                        SceneManager.getInstance().showScene("dashboard.fxml");
+SceneManager.getInstance().switchToScene("dashboard.fxml");
                     } catch (Exception ex) {
                         logger.error("Error navigating to dashboard", ex);
                         showLoginError("Error loading dashboard: " + ex.getMessage());
@@ -358,7 +362,7 @@ public class LoginController implements Initializable {
             if (userService.validateSession()) {
                 // User has valid session, navigate to dashboard
                 try {
-                    SceneManager.getInstance().showScene("dashboard.fxml");
+SceneManager.getInstance().switchToScene("dashboard.fxml");
                 } catch (Exception e) {
                     logger.error("Error navigating to dashboard", e);
                     // Stay on login screen if navigation fails

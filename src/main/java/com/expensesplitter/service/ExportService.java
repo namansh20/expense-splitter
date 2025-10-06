@@ -43,7 +43,7 @@ public class ExportService {
                     expense.getDescription(),
                     expense.getAmount().toString(),
                     expense.getCurrency(),
-                    expense.getCategory() != null ? expense.getCategory().name() : "",
+expense.getCategory() != null ? expense.getCategory().getCategoryName() : "",
                     expense.getSplitType() != null ? expense.getSplitType().name() : "",
                     expense.getPaidByUserId() != null ? expense.getPaidByUserId().toString() : "",
                     expense.getGroupId() != null ? expense.getGroupId().toString() : "",

@@ -95,17 +95,20 @@ public class ExpenseSplitterApplication extends Application {
         // Check if user is logged in (implement authentication logic)
         boolean isUserLoggedIn = checkUserAuthentication();
         
-        if (isUserLoggedIn) {
-            sceneManager.switchToScene("main-dashboard.fxml");
+if (isUserLoggedIn) {
+            sceneManager.switchToScene("dashboard.fxml");
         } else {
             sceneManager.switchToScene("login.fxml");
         }
     }
 
-    private boolean checkUserAuthentication() {
-        // TODO: Implement user authentication check
-        // For now, always return false to show login screen
-        return false;
+private boolean checkUserAuthentication() {
+        try {
+            return com.expensesplitter.config.AppContext.getInstance()
+                    .getUserService().isLoggedIn();
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private void showErrorAndExit(String message) {
