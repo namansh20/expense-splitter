@@ -2,6 +2,16 @@
 
 A comprehensive desktop application built with Java and JavaFX for splitting expenses among groups, featuring data visualization, database persistence, and scheduled tasks.
 
+## Quick Start (In-Memory Mode)
+
+- Build: `mvn clean package`
+- Run: `mvn javafx:run`
+- Login with demo account:
+  - Username or Email: demo or demo@example.com
+  - Password: password
+
+In-memory persistence is used by default for a zero-setup experience. MySQL support remains available for production setups.
+
 ## Features
 
 - **Multi-user Support**: Create and manage multiple users
@@ -51,7 +61,7 @@ src/main/java/com/expensesplitter/
 - Maven 3.8 or higher
 - Git
 
-## Database Setup
+## Database Setup (Optional, for MySQL mode)
 
 1. Install MySQL and create a database:
    ```sql
@@ -83,7 +93,7 @@ src/main/java/com/expensesplitter/
    cd expense-splitter-java
    ```
 
-2. **Configure database connection**:
+2. (Optional) Configure MySQL connection if you want to use a database instead of in-memory storage:
    Edit `src/main/resources/application.properties` to match your database settings:
    ```properties
    database.url=jdbc:mysql://localhost:3306/expense_splitter
